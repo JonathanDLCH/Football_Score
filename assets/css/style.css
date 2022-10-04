@@ -1,0 +1,21 @@
+body{
+    background: url('../img/bg_campo.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+main{
+    display: flex;
+}
+
+main aside{
+    background-color: rgba(253, 255, 255, 0.936);
+    padding: 20px;
+    width: 40%;
+}
+
+main section{
+    background-color: rgba(194, 247, 205, 0.936);
+    padding: 20px;
+    width: 60%;
+}

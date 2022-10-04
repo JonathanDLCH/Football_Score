@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Puntuación Liga</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body class="container">
+    <header class="my-4">
+        <h1 class="text-center">Football Register</h1>
+    </header>
+    <main class="container mb-5">
+        <aside>
+            <div>
+                <div class="my-3">
+                    <fieldset class="mb-3">
+                        <legend class="text-center">Registrar equipo</legend>
+                        <div class="form-group">
+                            <label for="team-name" class="form-label mt-4">Nombre de equipo</label>
+                            <input type="text" class="form-control" id="InputTeamName"/>
+                            <small id="nameHelp" class="form-text text-muted">
+                                Ingrese un nombre con maximo 15 caracteres
+                            </small>
+                        </div>
+                    </fieldset>
+                    <button class="btn btn-primary" id="btnAddTeam">
+                        Agregar equipo
+                    </button>
+                </div>
+                <div class="my-3">
+                    <fieldset class="mb-3">
+                        <legend class="text-center">Registrar entrada</legend>
+                        <div class="form-group">
+                            <label for="exampleSelect1" class="form-label mt-4">Equipo Local</label>
+                            <select class="form-select" id="exampleSelect1">
+                              <option>Puebla</option>
+                              <option>America</option>
+                              <option>Cruz Azul</option>
+                              <option>4</option>
+                              <option>5</option>
+                            </select>
+                            <label for="team-marker" class="form-label mt-4">Goles anotados</label>
+                            <input type="number" class="form-control" id="InputTeamGols" aria-describedby="nameHelp" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleSelect1" class="form-label mt-4">Equipo Rival</label>
+                            <select class="form-select" id="exampleSelect1">
+                              <option>Puebla</option>
+                              <option>America</option>
+                              <option>Cruz Azul</option>
+                              <option>4</option>
+                              <option>5</option>
+                            </select>
+                            <label for="team-marker" class="form-label mt-4">Goles anotados</label>
+                            <input type="number" class="form-control" id="InputTeamGols" aria-describedby="nameHelp" />
+                        </div>
+                    </fieldset>
+
+                    <button class="btn btn-primary" id="btnRegister">
+                        Registrar Puntuación
+                    </button>
+                </div>
+            </div>
+        </aside>
+        <section>
+            <h2 class="text-center">Results</h2>
+            <table class="mt-5 table table-hover">
+                <thead>
+                    <tr>
+                        <th>TEAM</th>
+                        <th>P1</th>
+                        <th>P2</th>
+                        <th>P3</th>
+                        <th>P4</th>
+                        <th>P5</th>
+                        <th>P6</th>
+                        <th>P7</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr></tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <footer class="container-fluid py-2 fixed-bottom bg-black">
+        <ul class="d-flex">
+            <li><a href="">Jonathan De La Cruz Huerta</a></li>
+            <li>201731754</li>
+            <li>FCC | BUAP</li>
+        </ul>
+    </footer>
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>
