@@ -49,7 +49,7 @@ function addTeam(){
     alert(`Se ha agregado el equipo ${newTeam.teamName} de manera correcta`);
     equipos.push(newTeam);
     renderEncabezado();
-    renderFilaEquipo();
+    renderFilasTabla();
 }
 
 function registrarPartido(){
@@ -70,6 +70,8 @@ function registrarPartido(){
         partidos.push(partidoTmp);
         alert('Se ha registrado el partido y guardado');
         limpiarRegistroPartido();
+        renderMarcador(golesLocal,teamLocalNombre,teamVisitanteNombre);
+        renderMarcador(golesVisita,teamVisitanteNombre,teamLocalNombre);
     }else {
         alert('No se pudo registrar el partido, algo salio mal')
         limpiarRegistroPartido();
@@ -149,10 +151,19 @@ function renderEncabezado(){
     }
 }
 
-function renderFilaEquipo(){// parametro a quitar
-    const tBody = document.getElementById('cuerpoTabla');
-    eliminarFilas(tBody); //eliminar filas si hay
-    crearCeldas(tBody); //creamos las filas y celdas
+function renderFilasTabla(){
+    if(equipos.length === 1){
+        for(let i=0;i<equipos.length;i++){
+            crearCeldas(equipos[i].teamName);
+        }
+    }else {       
+        for(let i=0;i<equipos.length-1;i++){
+            eliminarFila();
+        }
+        for(let i=0;i<equipos.length;i++){
+            crearCeldas(equipos[i].teamName);
+        }
+    }
 }
 
 function limpiarRegistroPartido(){
@@ -162,28 +173,40 @@ function limpiarRegistroPartido(){
     document.getElementById('golesVisita').value = "";
 }
 
-function eliminarFilas(padre){
-    const numHijos = padre.childElementCount;
-    if(numHijos !== 0){
-        for(let i=0;i<numHijos;i++){
-            padre.removeChild(padre.children[i]);
+function eliminarFila(){
+    const padreBody = document.getElementById('cuerpoTabla');
+    if(padreBody.hasChildNodes()){
+        padreBody.removeChild(padreBody.children[0]);
+    }
+}
+
+function crearCeldas(nombreEquipo){
+    const tBody = document.getElementById('cuerpoTabla');
+    const tr = document.createElement('tr');
+    tr.id = `fila-${nombreEquipo}`;
+    const numEquipos = equipos.length;
+    for(let i=0;i<=numEquipos;i++){
+        const th = document.createElement('th');
+        if(i===0){
+            th.textContent = nombreEquipo;
+        }else {
+            th.id = `celda-${nombreEquipo}-${i}`;
+        }
+        tr.appendChild(th);
+    }
+    tBody.appendChild(tr);
+}
+
+function busquedaPosicion(equipo){
+    for(let i=0;i<equipos.length;i++){
+        if(equipos[i].teamName === equipo){
+            return i;
         }
     }
 }
 
-function crearCeldas(cuerpo){
-    for(let i = 0;i<equipos.length;i++){
-        const tr = document.createElement('tr');
-        tr.id = `fila-${equipos[i].teamName}`;
-        for(let j=0;j<=equipos.length;j++){
-            const th = document.createElement('th');
-            if(j===0){
-                th.textContent = equipos[i].teamName;
-            }else {
-                th.id = `celda-${equipos[i].teamName}-${j}`;
-            }
-            tr.appendChild(th);
-        }
-        cuerpo.appendChild(tr);
-    }
+function renderMarcador(golesLocal,nombreEquipoLocal,nombreEquipoVisita){
+    let posicion = busquedaPosicion(nombreEquipoVisita) + 1;
+    let celda = document.getElementById(`celda-${nombreEquipoLocal}-${posicion}`);
+    celda.textContent = golesLocal;
 }
