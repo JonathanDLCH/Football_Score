@@ -48,6 +48,8 @@ function addTeam(){
     document.getElementById('InputTeamName').value = "";
     alert(`Se ha agregado el equipo ${newTeam.teamName} de manera correcta`);
     equipos.push(newTeam);
+    renderEncabezado();
+    renderFilaEquipo(newTeam);
 }
 
 function registrarPartido(){
@@ -137,9 +139,31 @@ function renderTeam(nombre,idPadre){
     padre.appendChild(hijoOption);
 }
 
+function renderEncabezado(){
+    const numEquipos = 8;
+    if (numEquipos > equipos.length && equipos.length !== 0) {
+        const padre = document.getElementById('encabezadoTabla');
+        const hijoOption = document.createElement('th');
+        hijoOption.textContent = equipos[equipos.length - 1].teamName;
+        padre.appendChild(hijoOption);
+    }
+}
+
+function renderFilaEquipo(equipo){
+    const tBody = document.getElementById('cuerpoTabla');
+    const tr = document.createElement('tr');
+    const th = document.createElement('th');
+    
+    th.textContent = equipo.teamName;
+    tr.id = `fila-${equipo.teamName}`;
+
+    tr.appendChild(th);
+    tBody.appendChild(tr);
+}
+
 function limpiarRegistroPartido(){
-    document.getElementById('selectLocal').value;
-    document.getElementById('selectVisita').value;
-    document.getElementById('golesLocal').value;
-    document.getElementById('golesVisita').value;
+    document.getElementById('selectLocal').selectedIndex = 0;
+    document.getElementById('selectVisita').selectedIndex = 0;
+    document.getElementById('golesLocal').value = "";
+    document.getElementById('golesVisita').value = "";
 }
