@@ -49,7 +49,7 @@ function addTeam(){
     alert(`Se ha agregado el equipo ${newTeam.teamName} de manera correcta`);
     equipos.push(newTeam);
     renderEncabezado();
-    renderFilaEquipo(newTeam);
+    renderFilaEquipo();
 }
 
 function registrarPartido(){
@@ -149,16 +149,10 @@ function renderEncabezado(){
     }
 }
 
-function renderFilaEquipo(equipo){
+function renderFilaEquipo(){// parametro a quitar
     const tBody = document.getElementById('cuerpoTabla');
-    const tr = document.createElement('tr');
-    const th = document.createElement('th');
-    
-    th.textContent = equipo.teamName;
-    tr.id = `fila-${equipo.teamName}`;
-
-    tr.appendChild(th);
-    tBody.appendChild(tr);
+    eliminarFilas(tBody); //eliminar filas si hay
+    crearCeldas(tBody); //creamos las filas y celdas
 }
 
 function limpiarRegistroPartido(){
@@ -166,4 +160,30 @@ function limpiarRegistroPartido(){
     document.getElementById('selectVisita').selectedIndex = 0;
     document.getElementById('golesLocal').value = "";
     document.getElementById('golesVisita').value = "";
+}
+
+function eliminarFilas(padre){
+    const numHijos = padre.childElementCount;
+    if(numHijos !== 0){
+        for(let i=0;i<numHijos;i++){
+            padre.removeChild(padre.children[i]);
+        }
+    }
+}
+
+function crearCeldas(cuerpo){
+    for(let i = 0;i<equipos.length;i++){
+        const tr = document.createElement('tr');
+        tr.id = `fila-${equipos[i].teamName}`;
+        for(let j=0;j<=equipos.length;j++){
+            const th = document.createElement('th');
+            if(j===0){
+                th.textContent = equipos[i].teamName;
+            }else {
+                th.id = `celda-${equipos[i].teamName}-${j}`;
+            }
+            tr.appendChild(th);
+        }
+        cuerpo.appendChild(tr);
+    }
 }
