@@ -3,7 +3,6 @@ class Partido {
         this.equipoLocal = new Equipo(equipoLocal.teamName,equipoLocal.puntos);
         this.equipoVisitante = new Equipo(equipoVisitante.teamName,equipoVisitante.puntos);
         this.empateBandera = false;
-        //this.equipoGanador = "";
     }
 
     asignarGanador(golesLocal,golesVisita){
@@ -12,12 +11,10 @@ class Partido {
 
         if(golesLocal >= golesVisita){
             this.equipoLocal.ganadorBandera = true;
-            //this.equipoGanador = this.equipoLocal.teamName;
         }else if(golesLocal === golesVisita){
             this.empateBandera = true;
         }else{
             this.equipoVisitante.ganadorBandera = true;
-            //this.equipoGanador = this.equipoVisitante.teamName;
         }
     }
 };
@@ -42,7 +39,6 @@ document.getElementById("btnRegister").addEventListener("click",registrarPartido
 function addTeam(){    
     const team = document.getElementById("InputTeamName").value;
     const newTeam = new Equipo(team.toUpperCase());
-    //debemos de agregarlos a los select con una funcion
     renderTeam(newTeam.teamName,'selectLocal');
     renderTeam(newTeam.teamName,'selectVisita');
     document.getElementById('InputTeamName').value = "";
@@ -53,16 +49,14 @@ function addTeam(){
 }
 
 function registrarPartido(){
-    //tener los nombres de la vista y el marcador
+    
     const teamLocalNombre = document.getElementById('selectLocal').value;
     const teamVisitanteNombre = document.getElementById('selectVisita').value;
     const golesLocal = document.getElementById('golesLocal').value;
     const golesVisita = document.getElementById('golesVisita').value;
-    //buscamos esos equipos para crear un partido
+    
     const teamLocal = busquedaEquipo(teamLocalNombre);
     const teamVisitante = busquedaEquipo(teamVisitanteNombre);
-    //validamos que existan los equipos y que sean distintos, de cumplirse creamos el partido y lo
-    //guardamos en el arreglo de partidos
     if(valida(teamLocal,teamVisitante) === 0){
         const partidoTmp = new Partido(teamLocal,teamVisitante);
         partidoTmp.asignarGanador(golesLocal,golesVisita);
@@ -81,17 +75,17 @@ function registrarPartido(){
 function busquedaEquipo(nombreBuscar){
     let equipoTemp;
 
-    if(equipos.length !== 0){ //validamos si hay equipos registrados
+    if(equipos.length !== 0){
         equipos.map((current,index)=>{
             if(nombreBuscar === current.teamName){
                 equipoTemp = current;
             }
         });
-    } else { // regresamos -1 en caso de que no haya equipos registrados
+    } else { 
         return -1
     }
 
-    if(equipoTemp) { // validamos si se encontro el equipo, en caso de que si pues regresamos el equipo
+    if(equipoTemp) { 
         return equipoTemp;
     }else{
         return -1;
@@ -99,11 +93,11 @@ function busquedaEquipo(nombreBuscar){
 }
 
 function valida(equipo1,equipo2){
-    if(equipo1 === -1 || equipo2 === -1){ //significa que un equipo al menos no se encontro o no esta en la lista
+    if(equipo1 === -1 || equipo2 === -1){ 
         return -1;
-    }else if(equipo1.teamName === equipo2.teamName) { //registraron al mismo equipo como local y visitante, esta mal
+    }else if(equipo1.teamName === equipo2.teamName) { 
         return -1;
-    }else { //son distintos equipos
+    }else {
         return 0
     }
 }
@@ -162,6 +156,12 @@ function renderFilasTabla(){
         }
         for(let i=0;i<equipos.length;i++){
             crearCeldas(equipos[i].teamName);
+        }
+        if(partidos.length !== 0){
+            for(let i=0;i<partidos.length;i++){
+                renderMarcador(partidos[i].golesLocal,partidos[i].equipoLocal.teamName,partidos[i].equipoVisitante.teamName);
+                renderMarcador(partidos[i].golesVisita,partidos[i].equipoVisitante.teamName,partidos[i].equipoLocal.teamName);
+            }
         }
     }
 }
