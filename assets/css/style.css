@@ -19,3 +19,8 @@ main section{
     padding: 20px;
     width: 60%;
 }
+
+ul{
+    list-style: none;
+    justify-content: space-between;
+}
