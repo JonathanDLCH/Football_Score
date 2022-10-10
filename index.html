@@ -8,6 +8,7 @@
     <title>Puntuación Liga</title>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.0/dist/echarts.js"></script>
 </head>
 
 <body class="container">
@@ -81,7 +82,12 @@
                 <tbody id="cuerpoTabla">
                 </tbody>
             </table>
+            <button class="btn btn-primary" id="btnGraficar">Graficar puntos</button>
+            <div id="lienzo">
+
+            </div>
         </section>
+        
     </main>
     <footer class="container-fluid py-2 fixed-bottom bg-black">
         <ul class="d-flex">
@@ -91,6 +97,58 @@
         </ul>
     </footer>
     <script src="assets/js/main.js"></script>
+
+    <script>
+
+        let lienzo = document.getElementById('lienzo');
+        let buttonGrafica = document.getElementById('btnGraficar');
+
+        buttonGrafica.addEventListener('click',()=>{
+            if(equipos.length !== 0){
+                let myChart = echarts.init(lienzo);
+                myChart.resize({
+                    width : 500,
+                    height : 500
+                });
+                
+                myChart.setOption({
+                    title : {
+                        text : "Puntuacion"
+                    },
+                    tooltip : {},
+                    xAxis : {
+                        data : equipos.map((current)=> current.teamName),
+                        name : "Equipos",
+                        nameLocation: 'center',
+                        nameGap: 30,
+                        splitNumber: equipos.length,
+                        type: 'category',
+                        axisLabel:{
+                            show:true,
+                            interval:0,
+                            fontWeight:'bold',
+                            margin: 10,
+                            align: 'center',
+                            width: 100
+                        }
+                    },
+                    yAxis : {
+                        name : "Puntos"
+                    },
+                    series : [
+                        {
+                            name : "# Puntos",
+                            type : "bar",
+                            data : equipos.map((current,index)=>current.puntos),
+                        }
+                    ]
+                });
+            }else {
+                alert("No hay equipos para hacer la grafica")
+            }
+        });
+
+    </script>
 </body>
 
 </html>
