@@ -9,7 +9,7 @@ class Partido {
         this.golesLocal = golesLocal;
         this.golesVisita = golesVisita;
 
-        if(golesLocal >= golesVisita){
+        if(golesLocal > golesVisita){
             this.equipoLocal.ganadorBandera = true;
         }else if(golesLocal === golesVisita){
             this.empateBandera = true;
@@ -52,8 +52,8 @@ function registrarPartido(){
     
     const teamLocalNombre = document.getElementById('selectLocal').value;
     const teamVisitanteNombre = document.getElementById('selectVisita').value;
-    const golesLocal = document.getElementById('golesLocal').value;
-    const golesVisita = document.getElementById('golesVisita').value;
+    const golesLocal = parseInt(document.getElementById('golesLocal').value);
+    const golesVisita = parseInt(document.getElementById('golesVisita').value);
     
     const teamLocal = busquedaEquipo(teamLocalNombre);
     const teamVisitante = busquedaEquipo(teamVisitanteNombre);
@@ -122,7 +122,7 @@ function sumaTresPuntos(equipo){
 
 function sumaUnPunto(equipoLocal,equipoVisitante){
     for(let i=0;i<equipos.length;i++){
-        if(equipos[i] === equipoLocal || equipos[i] === equipoVisitante){
+        if(equipos[i].teamName === equipoLocal.teamName || equipos[i] === equipoVisitante.teamName){
             equipos[i].puntos += 1;
         }
     }
